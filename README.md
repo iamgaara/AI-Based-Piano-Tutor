@@ -1,10 +1,10 @@
-# 🎹 AI-Based Piano Tutor: Real-Time Keyboard Detection & Sight-Reading Assistant
+# AI-Based Piano Tutor: Real-Time Keyboard Detection & Sight-Reading Assistant
 
 > A computer vision and audio-guided piano tutoring system for beginner pianists. Maps sheet music notes to real piano keys in real time using webcam feed, neural keyboard segmentation, and audio note verification.
 
 ---
 
-## 📌 Attribution & Academic Acknowledgements
+## Attribution & Academic Acknowledgements
 
 This project builds upon the foundational research, vision pipeline, and architecture developed by **Aaron Mok**:
 
@@ -18,7 +18,7 @@ We maintain the original repository as an unmodified submodule and baseline in `
 
 ---
 
-## 🏗️ Repository Architecture
+## Repository Architecture
 
 ```
 AI-Based-Piano-Tutor/
@@ -42,22 +42,22 @@ AI-Based-Piano-Tutor/
 
 ---
 
-## 📊 Baseline Reproduction & Benchmark Findings
+## Baseline Reproduction & Benchmark Findings
 
 We conducted an empirical reproduction and CPU benchmark using the author's pretrained weights on 1080p demo footage (`Demo/first_bar_single_notes.mp4`):
 
 | Metric | Measured Baseline Performance | Status |
 |---|---|---|
-| **YOLOv8 Keyboard Segmentation** | 77.8 ms – 117.2 ms (~10.4 FPS steady-state on CPU) | ✅ Highly Robust (100% mask detection) |
+| **YOLOv8 Keyboard Segmentation** | 77.8 ms – 117.2 ms (~10.4 FPS steady-state on CPU) |  Highly Robust (100% mask detection) |
 | **Hough Line Key Detection** | Detected 20–41 lines (Required: 53 lines for 52 white keys) | ⚠️ Sensitive to lighting & perspective |
-| **Exact 52-Key Match Rate** | 0.0% (strict `len(lines) == 53` threshold) | ⚠️ Critical failure mode under occlusion |
-| **Audio Note Recognition** | FFT peak-picking with 3s background subtraction | ✅ Functional for clean single notes |
+| **Exact 52-Key Match Rate** | 0.0% (strict `len(lines) == 53` threshold) |  Critical failure mode under occlusion |
+| **Audio Note Recognition** | FFT peak-picking with 3s background subtraction |  Functional for clean single notes |
 
 For the full benchmark analysis, see [`Documentation/research_baseline_report.md`](Documentation/research_baseline_report.md).
 
 ---
 
-## 🚀 Key Improvements in Our Implementation
+## Key Improvements in Our Implementation
 
 1. **4-Corner Homography & Perspective Warping**:
    Instead of simple bounding box cropping, we detect the 4 keyboard corners and warp the angled trapezoid into an orthogonal bird's-eye rectangle.
