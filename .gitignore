@@ -1,0 +1,24 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Temporary and Cache Directories (Drive D isolation)
+.temp/
+.cache/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Output images and logs
+Experiments/**/output_baseline/
+Experiments/**/runs/
+*.log
+
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Documents and scratch
+*.pdf
