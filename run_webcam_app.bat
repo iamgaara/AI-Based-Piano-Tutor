@@ -1,11 +1,15 @@
 @echo off
 title Piano AI - Live Webcam & Mic App
-echo Starting AI-Piano-Tutor with live webcam (Camera 0) and microphone...
-set TEMP=D:\Final year project\.temp
-set TMP=D:\Final year project\.temp
-set YOLO_CONFIG_DIR=D:\Final year project\.cache\yolo
+set "ROOT_DIR=%~dp0"
+set "TEMP=%ROOT_DIR%.temp"
+set "TMP=%ROOT_DIR%.temp"
+set "YOLO_CONFIG_DIR=%ROOT_DIR%.cache\yolo"
 set PYTHONUNBUFFERED=1
 
-cd /d "D:\Final year project\Research\AI-Piano-Tutor"
-"D:\Final year project\.venv\Scripts\python.exe" main.py
+if not exist "%TEMP%" mkdir "%TEMP%"
+if not exist "%YOLO_CONFIG_DIR%" mkdir "%YOLO_CONFIG_DIR%"
+
+echo Starting AI-Piano-Tutor with live webcam (Camera 0) and microphone...
+cd /d "%ROOT_DIR%Research\AI-Piano-Tutor"
+"%ROOT_DIR%.venv\Scripts\python.exe" main.py %*
 pause

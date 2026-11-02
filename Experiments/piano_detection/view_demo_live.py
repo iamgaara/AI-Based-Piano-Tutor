@@ -88,8 +88,11 @@ def run_live_visualizer(video_path):
                             cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 255), 2)
                 cv2.imshow("Detected Piano Keys & Lines", cv2.resize(line_display, (960, int(line_display.shape[0] * 960 / line_display.shape[1]))))
 
-            # Show annotated YOLO view
-            display_annotated = cv2.resize(annotated, (960, 540))
+            # Show annotated YOLO view (maintain aspect ratio)
+            h_ann, w_ann = annotated.shape[:2]
+            target_h = 540
+            target_w = max(1, int(w_ann * (target_h / h_ann)))
+            display_annotated = cv2.resize(annotated, (target_w, target_h))
             cv2.imshow("YOLOv8 Segmentation Overlay", display_annotated)
 
         key = cv2.waitKey(20) & 0xFF
@@ -102,5 +105,13 @@ def run_live_visualizer(video_path):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    demo_video = os.path.join(RESEARCH_DIR, "Demo", "first_bar_single_notes.mp4")
-    run_live_visualizer(demo_video)
+    import argparse
+    parser = argparse.ArgumentParser(description="Live Piano Detection & Hough Line Visualizer")
+    default_video = os.path.join(RESEARCH_DIR, "Demo", "Left-hand-coordination-SnapYT.App.mp4")
+    if not os.path.exists(default_video):
+        default_video = os.path.join(RESEARCH_DIR, "Demo", "first_bar_single_notes.mp4")
+    parser.add_argument("--video", type=str, default=default_video, help="Path to demo video")
+    args = parser.parse_args()
+
+    run_live_visualizer(args.video)
+
